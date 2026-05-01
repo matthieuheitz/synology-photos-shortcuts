@@ -77,9 +77,14 @@ function deleteDialog() {
 
 // Action: Download (Shift + D)
 function download() {
-  const selectViewDownloadButton = findButton('.synofoto-menu-text-button', 'Original')
+  const selectViewDownloadButton = findButton('.synofoto-menu-text-button', 'Download')
   if (selectViewDownloadButton) {
     selectViewDownloadButton.click();
+  } else {
+    const selectViewDownloadButton = document.querySelector('.synofoto-icon-button[data-tip="Download"]')
+    if (selectViewDownloadButton) {
+      selectViewDownloadButton.click();
+    }
   }
 }
 
