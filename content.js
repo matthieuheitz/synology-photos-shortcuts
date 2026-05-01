@@ -34,15 +34,17 @@ function addTags() {
   if (editTagsButton) {
     editTagsButton.click();
   } else {
-    const infoButton = document.querySelector('.synofoto-lightbox-toolbar-right-button[data-tooltip-content="Information"]');
-    if (infoButton) {
-      infoButton.click();
-      setTimeout(() => {
-        const input = document.querySelector('.synofoto__input[placeholder*="tags"]');
-        if (input) input.focus();
-      }, 50);
+    const input = document.querySelector('input[placeholder="Add tags"]');
+    // Is the input field visible?
+    if (!input) {
+      const infoButton = document.querySelector('.synofoto-lightbox-toolbar-right-button[data-tip="Information"]');
+      if (infoButton) infoButton.click();
     }
   }
+  setTimeout(() => {
+    const input = document.querySelector('input[placeholder="Add tags"]');
+    if (input) input.focus();
+  }, 50);
 }
 
 // Action: Rotate (Shift + R)
