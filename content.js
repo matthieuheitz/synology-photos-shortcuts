@@ -75,6 +75,29 @@ function deleteDialog() {
   }
 }
 
+// Action: Direct Delete (Ctrl + Delete) - Delete without confirmation
+function directDelete() {
+  // First, open the delete dialog
+  deleteDialog();
+
+  // Wait for the confirmation dialog to appear, then click the confirmation button
+  const maxAttempts = 20; // Try for up to 2 seconds (20 * 100ms)
+  let attempts = 0;
+
+  const confirmDelete = setInterval(() => {
+    // Look for the delete button in the confirmation dialog
+    const confirmButton = document.querySelector('.synofoto-text-button-red');
+
+    if (confirmButton) {
+      confirmButton.click();
+      clearInterval(confirmDelete);
+    } else if (attempts >= maxAttempts) {
+      clearInterval(confirmDelete);
+    }
+    attempts++;
+  }, 100);
+}
+
 // Action: Download (Shift + D)
 function download() {
   const selectViewDownloadButton = findButton('.synofoto-menu-text-button', 'Download')
@@ -131,6 +154,15 @@ document.addEventListener('keydown', (event) => {
       || event.target.tagName === 'TEXTAREA'
       || event.target.isContentEditable
   ) return;
+
+//  console.log('key stroke:', event.key);
+
+  // Force Delete shortcut (Ctrl + Delete)
+  if (event.ctrlKey && event.key === 'Delete') {
+    event.preventDefault();
+    directDelete();
+    return;
+  }
 
   if (event.shiftKey) {
     const action = actions[event.key];
