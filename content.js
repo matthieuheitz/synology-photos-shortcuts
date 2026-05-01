@@ -98,11 +98,19 @@ function changeView() {
 
 // Action: Rate Photo (1-5 keys for 1-5 stars)
 function ratePhoto(rating) {
-  // Find the rating stars; assuming they are in order and clickable to set rating
-  const stars = document.querySelectorAll('.synofoto-icon-button-rating');
-  if (stars.length >= rating) {
-    stars[rating - 1].click(); // Click the nth star to set to n stars
+  // Check if ratings stars are visible (right panel is open)
+  const stars_visible = document.querySelectorAll('.synofoto-icon-button-rating');
+  if (stars_visible.length === 0) {
+    const infoButton = document.querySelector('.synofoto-lightbox-toolbar-right-button[data-tip="Information"]');
+    if (infoButton) infoButton.click();
   }
+  setTimeout(() => {
+    // Find the rating stars; assuming they are in order and clickable to set rating
+    const stars = document.querySelectorAll('.synofoto-icon-button-rating');
+    if (stars.length >= rating) {
+      stars[rating - 1].click(); // Click the nth star to set to n stars
+    }
+  }, 50);
 }
 
 // Map key to actions (Shift + {Key})
@@ -142,7 +150,7 @@ document.addEventListener('keydown', (event) => {
   }
 
   // Rating shortcuts
-  if (event.key >= '1' && event.key <= '5' && !event.shiftKey && !event.ctrlKey && !event.metaKey && !event.altKey) {
+  if (event.key >= '1' && event.key <= '5' && !event.ctrlKey && !event.metaKey && !event.altKey) {
     event.preventDefault();
     ratePhoto(parseInt(event.key));
   }
