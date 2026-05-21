@@ -122,8 +122,8 @@ function changeView() {
 // Action: Rate Photo (1-5 keys for 1-5 stars)
 function ratePhoto(rating) {
   // Check if ratings stars are visible (right panel is open)
-  const stars_visible = document.querySelectorAll('.synofoto-icon-button-rating');
-  if (stars_visible.length === 0) {
+  const starsVisible = document.querySelectorAll('.synofoto-icon-button-rating');
+  if (starsVisible.length === 0) {
     const infoButton = document.querySelector('.synofoto-lightbox-toolbar-right-button[data-tip="Information"]');
     if (infoButton) infoButton.click();
   }
